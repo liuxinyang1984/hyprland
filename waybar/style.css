@@ -1,0 +1,87 @@
+/* Waybar dark：仅覆盖当前上栏模块 */
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  min-height: 0;
+  font-size: 16px;
+  padding: 0;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+window#waybar.hidden {
+  opacity: 0.5;
+}
+
+tooltip {
+  background: #373737;
+  border-radius: 10px;
+  border: 2px solid #373737;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: #373737;
+  border-radius: 10px;
+}
+
+#workspaces button {
+  padding: 2px;
+  color: #4f4f4f;
+  margin-right: 5px;
+}
+
+#workspaces button.active {
+  color: #dedede;
+  border-radius: 15px;
+}
+
+#workspaces button.focused {
+  color: #d8dee9;
+}
+
+#workspaces button.urgent {
+  color: #11111b;
+  border-radius: 10px;
+}
+
+#workspaces button:hover {
+  color: #fff;
+  border-radius: 15px;
+}
+
+#cpu,
+#memory,
+#temperature,
+#custom-menu,
+#workspaces,
+#window,
+#tray,
+#backlight,
+#pulseaudio,
+#battery,
+#clock {
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+#temperature.critical {
+  background-color: #ff0000;
+}
+
+@keyframes blink {
+  to {
+    color: #000;
+  }
+}
+
+#battery.critical:not(.charging) {
+  color: #f53c3c;
+  animation: blink 0.5s linear infinite alternate;
+}

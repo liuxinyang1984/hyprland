@@ -1,0 +1,159 @@
+{
+  // ============================================================
+  // 仅保留 config 中实际上栏的模块定义
+  // ============================================================
+
+  // ========== 左侧 ==========
+
+  // CPU：单击切换柱状图备用格式
+  "cpu": {
+    "format": "󰍛 {usage}%",
+    "interval": 1,
+    "format-alt-click": "click",
+    "format-alt": "󰍛 {icon0}{icon1}{icon2}{icon3} {usage:>2}% ",
+    "format-icons": [
+      "▁",
+      "▂",
+      "▃",
+      "▄",
+      "▅",
+      "▆",
+      "▇",
+      "█"
+    ]
+  },
+
+  // 内存：右键打开 btop
+  "memory": {
+    "interval": 10,
+    "format": "󰾆 {used:0.1f}G",
+    "format-alt": "󰾆 {percentage}%",
+    "format-alt-click": "click",
+    "tooltip": true,
+    "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
+    "on-click-right": "foot --title btop sh -c 'btop'"
+  },
+
+  // 温度：thinkpad hwmon4
+  "temperature": {
+    "interval": 10,
+    "tooltip": false,
+    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+    "critical-threshold": 82,
+    "format": "{icon} {temperatureC}°C",
+    "format-critical": "{icon} {temperatureC}°C",
+    "format-icons": [
+      ""
+    ]
+  },
+
+  // ========== 中间 ==========
+
+  // 左键切换 dark / light 主题色
+  "custom/menu": {
+    "format": "",
+    "tooltip": true,
+    "tooltip-format": "左键：切换 Waybar 主题色（dark / light）",
+    "on-click": "~/.config/waybar/toggle-style.sh"
+  },
+
+  // 不显示 special；忽略旧隐藏桌面 11
+  "hyprland/workspaces": {
+    "persistent-workspaces": true,
+    "show-special": false,
+    "ignore-workspaces": ["11"]
+  },
+
+  // max-length 按字符计（汉字算 1，视觉更宽可再调）
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 30,
+    "separate-outputs": true
+  },
+
+  // ========== 右侧 ==========
+
+  // 主显示 HH:MM；单击：中文年月日 + 带秒；无悬停
+  "clock": {
+    "format": " {:%H:%M}",
+    "format-alt": " {:%Y年%m月%d日 %H:%M:%S}",
+    "tooltip": false
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
+  },
+
+  // 笔记本内屏：brightnessctl
+  "backlight": {
+    "interval": 2,
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃞",
+      "󰃟",
+      "󰃠"
+    ],
+    "scroll-step": 10.0,
+    "on-scroll-up": "brightnessctl set +10%",
+    "on-scroll-down": "brightnessctl set 10%-",
+    "smooth-scrolling-threshold": 1,
+    "tooltip": false
+  },
+
+  // wpctl；右键日后接 CUI
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": " {icon} {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ],
+      "ignored-sinks": [
+        "Easy Effects Sink"
+      ]
+    },
+    "scroll-step": 5.0,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "notify-send 'Waybar' '音量：右键 CUI 占位（后期细化）'",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "tooltip": false,
+    "smooth-scrolling-threshold": 1
+  },
+
+  // 满电只显示插头图标
+  "battery": {
+    "interval": 60,
+    "full-at": 100,
+    "design-capacity": false,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-full": "",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "format-time": "{H}h {M}min",
+    "tooltip": true
+  }
+}
