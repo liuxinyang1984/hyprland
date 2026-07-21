@@ -1,0 +1,41 @@
+## Wofi：单一启动器（应用列表 + 图标）
+## 样式见 style.css（styles/dark.css 或 light.css）
+
+## General
+show=drun
+prompt=应用
+normal_window=false
+layer=overlay
+term=foot
+columns=2
+
+## Geometry
+width=42%
+height=48%
+location=center
+orientation=vertical
+halign=fill
+line_wrap=off
+dynamic_lines=false
+
+## Images（图标）
+allow_markup=true
+allow_images=true
+image_size=28
+
+## Search
+exec_search=false
+hide_search=false
+parse_search=false
+insensitive=true
+
+## Other
+hide_scroll=false
+no_actions=true
+sort_order=default
+gtk_dark=true
+filter_rate=100
+
+## Keys
+key_expand=Tab
+key_exit=Escape

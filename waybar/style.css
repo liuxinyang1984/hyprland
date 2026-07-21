@@ -1,4 +1,4 @@
-/* Waybar dark：仅覆盖当前上栏模块 */
+/* Waybar light：仅覆盖当前上栏模块 */
 * {
   font-family: "JetBrainsMono Nerd Font";
   font-weight: bold;
@@ -14,44 +14,37 @@ window#waybar {
 }
 
 window#waybar.hidden {
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 tooltip {
-  background: #373737;
+  background: rgba(236, 236, 236, 0.7);
   border-radius: 10px;
-  border: 2px solid #373737;
+  border: 2px solid rgba(236, 236, 236, 0.7);
+}
+
+tooltip label {
+  color: #373737;
 }
 
 .modules-left,
 .modules-center,
 .modules-right {
-  background-color: #373737;
+  background-color: rgba(232, 236, 241, 0.7);
   border-radius: 10px;
 }
 
 #workspaces button {
   padding: 2px;
-  color: #4f4f4f;
+  color: #585b70;
   margin-right: 5px;
 }
 
-#workspaces button.active {
-  color: #dedede;
-  border-radius: 15px;
-}
-
-#workspaces button.focused {
-  color: #d8dee9;
-}
-
-#workspaces button.urgent {
-  color: #11111b;
-  border-radius: 10px;
-}
-
+#workspaces button.active,
+#workspaces button.focused,
+#workspaces button.urgent,
 #workspaces button:hover {
-  color: #fff;
+  color: #000;
   border-radius: 15px;
 }
 
@@ -66,7 +59,7 @@ tooltip {
 #pulseaudio,
 #battery,
 #clock {
-  color: #fff;
+  color: #000;
   padding: 0 10px;
   border-radius: 10px;
 }

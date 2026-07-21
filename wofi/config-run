@@ -1,0 +1,41 @@
+## Wofi：运行命令（PATH 中的可执行文件）
+## 样式与应用启动器共用 style.css（dark/light）
+
+## General
+show=run
+prompt=命令
+normal_window=false
+layer=overlay
+term=foot
+columns=1
+
+## Geometry
+width=36%
+height=40%
+location=center
+orientation=vertical
+halign=fill
+line_wrap=off
+dynamic_lines=false
+
+## Images（命令列表一般无桌面图标）
+allow_markup=true
+allow_images=false
+image_size=24
+
+## Search
+exec_search=false
+hide_search=false
+parse_search=false
+insensitive=true
+
+## Other
+hide_scroll=false
+no_actions=true
+sort_order=default
+gtk_dark=true
+filter_rate=100
+
+## Keys
+key_expand=Tab
+key_exit=Escape

@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
-# 在 dark / light 之间切换 Waybar 样式，并通知 waybar 重载样式
+# 同时切换 Waybar 与 Wofi 的 dark / light（同色系）
 set -euo pipefail
 
-CONF="${XDG_CONFIG_HOME:-$HOME/.config}/waybar"
-STATE="$CONF/.style-theme"
-DARK="$CONF/styles/dark.css"
-LIGHT="$CONF/styles/light.css"
-TARGET="$CONF/style.css"
+CFG="${XDG_CONFIG_HOME:-$HOME/.config}"
+WB="$CFG/waybar"
+WF="$CFG/wofi"
+# 以 Waybar 状态为准
+STATE="$WB/.style-theme"
 
 current="$(cat "$STATE" 2>/dev/null || echo dark)"
-
 if [[ "$current" == "dark" ]]; then
   next="light"
-  cp "$LIGHT" "$TARGET"
 else
   next="dark"
-  cp "$DARK" "$TARGET"
 fi
 
+cp "$WB/styles/${next}.css" "$WB/style.css"
+cp "$WF/styles/${next}.css" "$WF/style.css"
 echo "$next" > "$STATE"
-# SIGUSR2：重载样式（无需整进程重启）
+echo "$next" > "$WF/.style-theme"
+
+# 重载 Waybar 样式；Wofi 下次打开即用新 style.css
 killall -SIGUSR2 waybar 2>/dev/null || true
-notify-send "Waybar" "主题色：$next"
+notify-send "主题" "Waybar + Wofi → $next" 2>/dev/null || true

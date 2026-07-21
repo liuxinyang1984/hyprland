@@ -53,7 +53,7 @@
   "custom/menu": {
     "format": "",
     "tooltip": true,
-    "tooltip-format": "左键：切换 Waybar 主题色（dark / light）",
+    "tooltip-format": "左键：同时切换 Waybar + Wofi 主题色（dark / light）",
     "on-click": "~/.config/waybar/toggle-style.sh"
   },
 
