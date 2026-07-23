@@ -34,11 +34,10 @@
     "on-click-right": "foot --title btop sh -c 'btop'"
   },
 
-  // 温度：thinkpad hwmon4
+  // 温度：不指定 hwmon-path，由 waybar 自动选择（台式 coretemp / 笔记本各异）
   "temperature": {
     "interval": 10,
     "tooltip": false,
-    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
     "critical-threshold": 82,
     "format": "{icon} {temperatureC}°C",
     "format-critical": "{icon} {temperatureC}°C",

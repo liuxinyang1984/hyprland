@@ -32,7 +32,7 @@
     "hyprland/window"
   ],
 
-  // 右侧：托盘 / 亮度 / 音量 / 电池 / 时钟（时钟靠最右）
+  // 右侧：托盘 / 亮度 / 音量 / 电池 / 时钟
   "modules-right": [
     "tray",
     "backlight",

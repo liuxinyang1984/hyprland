@@ -1,0 +1,10 @@
+# ============================================================
+# 环境 overlay — 家用笔记本（main 默认）
+# office 实机部署时临时改为办公室内容；正式差异请用 office 分支。
+# ============================================================
+
+exec-once = echo "Xft.dpi: 120" | xrdb -merge
+
+monitor = eDP-1, preferred, 0x0, 1.25
+monitor = headless, disable
+monitor = , preferred, auto, 1.25

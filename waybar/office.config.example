@@ -1,0 +1,11 @@
+# ============================================================
+# 办公室 Waybar 差异示例（office 分支改 waybar/config）
+#
+# 方案 A：仅主屏（删掉 output 则默认每屏各一条）
+#   在 config 根对象加："output": "DP-1"
+#
+# 方案 B：双栏 JSON 数组（竖屏 / 主屏不同模块，见旧 hyprconfig）
+#   将 config 改为 [ { "output": "DP-1", ... }, { "output": "DVI-D-1", ... } ]
+#
+# 台式机可在 modules-right 去掉 backlight、battery（modules.jsonc 无需改）
+# ============================================================
