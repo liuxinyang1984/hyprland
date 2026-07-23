@@ -31,7 +31,7 @@ ensure_dir() {
 capture() {
   local -a grim_args=("$@")
   ensure_dir
-  (cd "$dir" && grim "${grim_args[@]}" | tee "$file" | wl-copy)
+  (cd "$dir" && grim "${grim_args[@]}" - | tee "$file" | wl-copy)
   notify "已复制到剪贴板"
   swappy -f "$dir/$file"
   if [[ -f "$dir/$file" ]]; then
