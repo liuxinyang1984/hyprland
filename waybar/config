@@ -15,8 +15,8 @@
   "spacing": 3,
   "fixed-center": true,
   "ipc": true,
-  "margin-left": 10,
-  "margin-right": 10,
+  "margin-left": 6,
+  "margin-right": 6,
 
   // 左侧：系统监控
   "modules-left": [
