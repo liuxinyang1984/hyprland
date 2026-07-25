@@ -7,12 +7,13 @@
 | DPI（`Xft.dpi` xrdb） | `env.conf` |
 | 本机 `monitor = …`、兜底行 | `env.conf` |
 | 可选 workspace → monitor 绑定 | `env.conf`（写死输出名） |
+| 可选颜色覆盖（`general` / `plugin` 等） | `env.conf`（须在 `hyprland.conf` 末尾 source 之后才生效） |
 | 公共 workspace 策略 | `workspaces.conf`（暂空，占位） |
 
 `hyprland.conf` 加载顺序：
 
 ```
-workspaces.conf → keybinds → exec → windowrules → env.conf（最后）
+workspaces.conf → keybinds → exec → windowrules →（主文件 general/decoration/…）→ env.conf（最后）
 ```
 
 公共文件 **不引用** `env.conf` 中的变量。`hyprlock.conf` 独立，暂不接入 overlay。
