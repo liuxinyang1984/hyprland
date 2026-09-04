@@ -1,0 +1,12 @@
+# hyprbars 白名单：显示标题栏的窗口 class（一行一个）
+# 标准：终端，或无自带菜单栏的单体 GUI
+# 维护：编辑本文件后运行 scripts/hyprbars-whitelist.sh，再 hyprctl reload
+# class 以 hyprctl clients 为准
+
+foot
+Alacritty
+kitty
+com.mitchellh.ghostty
+org.qutebrowser.qutebrowser
+org.pwmt.zathura
+scrcpy

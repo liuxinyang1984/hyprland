@@ -14,10 +14,10 @@
 |------|------|
 | 窗口边框 | `border_size = 5`，活动色 `rgb(40a02b)`，非活动 `rgb(6c7086)` |
 | 圆角 | `rounding = 4`，`rounding_power = 1.0`（直角切角） |
-| 标题栏 | hyprbars 开启；高 28；激活底 `rgb(40a02b)`；字白 |
+| 标题栏 | hyprbars 开启；**默认不显示**；白名单程序才显示 |
 | 标题文字 | 字体 `Saira Condensed Thin`，字号 18，`bold`，左对齐，`bar_text_y_offset = -2` |
 | 非激活标题栏底色 | `rgb(6c7086)`（windowrule） |
-| 浏览器 / 微信 | 无 hyprbars 标题栏（`hyprbars:no_bar`） |
+| 白名单示例 | foot / kitty / Alacritty / ghostty / qutebrowser / zathura / scrcpy |
 | Waybar | 顶栏自启 |
 
 ---
@@ -27,8 +27,11 @@
 | 路径 | 用途 |
 |------|------|
 | `hypr/hyprland.conf` | `decoration` + `plugin { hyprbars { } }`；活动边框色与 `bar_color` 一致 |
-| `hypr/windowrules.conf` | `hyprbars-inactive`；Firefox / Chrome / Edge / 微信 `hyprbars:no_bar` |
-| `hypr/exec.conf` | `exec-once = hyprpm reload -n && hyprctl reload` 与 `waybar` |
+| `hypr/windowrules.conf` | `hyprbars-default-off`；`source hyprbars-show.conf`；`hyprbars-inactive` |
+| `hypr/hyprbars-whitelist.txt` | **手改**白名单 class 列表 |
+| `hypr/hyprbars-show.conf` | 由脚本生成，勿手改 |
+| `scripts/hyprbars-whitelist.sh` | txt → show.conf |
+| `hypr/exec.conf` | 启动时生成白名单规则后 `hyprpm reload` + `hyprctl reload` |
 
 字体与 hyprbars 补丁**不在本分支仓库内**，需按下方手动步骤安装。
 
@@ -88,13 +91,13 @@ plugin {
 **窗口规则（节选）**
 
 ```conf
-# 浏览器 / 微信：不显示标题栏（class 以 hyprctl clients 为准）
+# 默认不显示；白名单覆盖为显示（见 hyprbars-show.conf）
 windowrule {
-  name = hyprbars-no-firefox
-  match:class = ^([Ff]irefox)$
-  hyprbars:no_bar = true
+  name = hyprbars-default-off
+  match:class = .*
+  hyprbars:no_bar = on
 }
-# Google-chrome、microsoft-edge、wechat 同理，见 windowrules.conf
+source = ./hyprbars-show.conf
 
 windowrule {
   name = hyprbars-inactive
@@ -103,10 +106,12 @@ windowrule {
 }
 ```
 
+维护白名单：编辑 `hypr/hyprbars-whitelist.txt` → `scripts/hyprbars-whitelist.sh` → `hyprctl reload`（或 Super+Ctrl+Shift+R）。
+
 **自启**
 
 ```conf
-exec-once = hyprpm reload -n && hyprctl reload
+exec-once = $scriptsDir/hyprbars-whitelist.sh && hyprpm reload -n && hyprctl reload
 exec-once = waybar
 ```
 
