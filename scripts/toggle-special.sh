@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # 在指定显示器上切换具名 special 工作区（togglespecialworkspace 默认跟焦点屏走）
 # 用法：toggle-special.sh <monitor> <special-name>
+#
+# 跨屏时只 focusmonitor 来回，不要 focuswindow：否则 Hyprland 偶发把原窗
+# 搬到目标屏的 special（例如在 left 上按 Super+] 窗被送到 right）。
 
 set -euo pipefail
 
@@ -12,7 +15,6 @@ fi
 target_monitor="$1"
 special_name="$2"
 
-current_win="$(hyprctl activewindow -j 2>/dev/null | jq -r '.address // empty')"
 current_mon="$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')"
 
 if [[ "$current_mon" == "$target_monitor" ]]; then
@@ -21,11 +23,6 @@ if [[ "$current_mon" == "$target_monitor" ]]; then
 fi
 
 hyprctl keyword cursor:no_warps true
-if [[ -n "$current_win" && "$current_win" != "null" && "$current_win" != "0x0" ]]; then
-	hyprctl --batch \
-		"dispatch focusmonitor ${target_monitor}; dispatch togglespecialworkspace ${special_name}; dispatch focuswindow address:${current_win}"
-else
-	hyprctl --batch \
-		"dispatch focusmonitor ${target_monitor}; dispatch togglespecialworkspace ${special_name}; dispatch focusmonitor ${current_mon}"
-fi
+hyprctl --batch \
+	"dispatch focusmonitor ${target_monitor}; dispatch togglespecialworkspace ${special_name}; dispatch focusmonitor ${current_mon}"
 hyprctl keyword cursor:no_warps false
