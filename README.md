@@ -8,7 +8,7 @@
 |------|------|
 | `hypr/` | Hyprland 主配置（含 hyprlock、环境 overlay） |
 | `hypr/env/` | 多机器差异说明与示例（如 `office.conf.example`） |
-| `docs/` | 复现说明（如 `title` 分支的 `hyprbars-titlebar.md`） |
+| `docs/` | 复现说明（`docs/chromium-ime.md`：Edge/Chrome 双屏中文输入） |
 | `waybar/` | 状态栏（dark / light） |
 | `wofi/` | 应用 / 命令启动器 |
 | `scripts/` | 壁纸、音量、亮度、截图、布局切换等 |
