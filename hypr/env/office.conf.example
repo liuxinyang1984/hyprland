@@ -8,7 +8,7 @@
 
 # --- 本机显示器 ---
 # monitor = DP-1, 1920x1200, 0x0, 1
-# monitor = DVI-D-1, 1600x1200, 1940x0, 1, transform, 1
+# monitor = DVI-D-1, 1600x1200, 1940x0, 1, transform, 1  # 20px 空隙 = 鼠标过界阻尼
 # monitor = , preferred, auto, 1
 
 # --- 可选：主屏 1–5 / 副屏 6–10 ---

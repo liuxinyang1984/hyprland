@@ -18,8 +18,9 @@
 | 分支 | 说明 |
 |------|------|
 | `master` | 公共基线；家用 `env.conf`；布局快捷键、dwindle 选项 |
-| `title` | `master` + hyprbars 标题栏（见 `docs/hyprbars-titlebar.md`） |
-| `office` | `title` + 办公室 `env.conf` 与 topterm / special 脚本 |
+| `office` | `master` + 办公室 `env.conf` 与 topterm / special 脚本 |
+| `x1c` / `desktop` | `master` + 各环境 `env.conf` |
+| `title` | 独立实验分支（hyprbars）；**不**再作为 env 分支的基线 |
 
 ## 常用快捷键（节选）
 
@@ -39,7 +40,7 @@
 
 1. **快捷键** ✓（媒体键、截图、剪贴板、布局切换、resize；部分笔记本键仍延后）
 2. 显示器 / overlay 骨架 ✓（`env.conf` 最后加载；办公室见 `office` 分支）
-3. 外观 / 输入 / 启动项 ✓（hyprbars 见 `title`；手势、GTK/Qt 外观部分延后）
+3. 外观 / 输入 / 启动项 ✓（手势、GTK/Qt 外观部分延后）
 4. Waybar ✓
 5. Wofi ✓
 6. 脚本：壁纸（awww）、音量、亮度、截图、`toggle-layout.sh` ✓
@@ -50,10 +51,8 @@
 
 公共配置在 `master`，**不依赖 env**；机器相关 **仅改 `hypr/env.conf`**。
 
-`office` 分支 rebase `title` 后维护办公室 `env.conf` 与脚本。详见 `hypr/env/README.md`。
+`office` / `x1c` / `desktop` 在 rebase **`master`** 后维护各自 `env.conf` 与脚本。详见 `hypr/env/README.md`。
 
 ## 部署
 
 将本仓库的 `hypr/` 链接或同步到 `~/.config/hypr` 后执行 `hyprctl reload`。
-
-需要 hyprbars 时使用 `title` 或 `office` 分支，并按 `docs/hyprbars-titlebar.md` 安装插件与字体。
