@@ -51,9 +51,14 @@ hl.bind(mainMod .. " + K", hl.dsp.exec_cmd(scriptsDir .. "/movefocus-cross.sh u"
 hl.bind(mainMod .. " + J", hl.dsp.exec_cmd(scriptsDir .. "/movefocus-cross.sh d"))
 
 -- 浮动 ↔ 平铺 焦点层切换（movefocus 不跨这两层）
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(
-    [[sh -c 'if [ "$(hyprctl activewindow -j | jq -r .floating)" = "true" ]; then hyprctl dispatch focuswindow tiled; else hyprctl dispatch focuswindow floating; fi']]
-))
+hl.bind(mainMod .. " + N", function()
+    local w = hl.get_active_window()
+    if w and w.floating then
+        hl.dispatch(hl.dsp.focus({ window = "tiled" }))
+    else
+        hl.dispatch(hl.dsp.focus({ window = "floating" }))
+    end
+end)
 
 -- 切换焦点显示器（贴边双屏用 l/r；有空隙的办公室在 env.lua 里 unbind 后改绑输出名）
 hl.bind(mainMod .. " + SHIFT + comma", hl.dsp.focus({ monitor = "l" }))
