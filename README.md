@@ -2,12 +2,14 @@
 
 通过问答逐步重建的配置仓库，不直接搬迁旧目录。
 
+需 **Hyprland 0.57+**（配置入口为 `hyprland.lua`；旧 `.conf` 已废弃）。
+
 ## 目录
 
 | 路径 | 用途 |
 |------|------|
 | `hypr/` | Hyprland 主配置（含 hyprlock、环境 overlay） |
-| `hypr/env/` | 多机器差异说明与示例（如 `office.conf.example`） |
+| `hypr/env/` | 多机器差异说明与示例（如 `office.lua.example`） |
 | `docs/` | 复现说明（`docs/chromium-ime.md`：Edge/Chrome 双屏中文输入） |
 | `waybar/` | 状态栏（dark / light） |
 | `wofi/` | 应用 / 命令启动器 |
@@ -17,14 +19,14 @@
 
 | 分支 | 说明 |
 |------|------|
-| `master` | 公共基线；家用 `env.conf`；布局快捷键、dwindle 选项 |
-| `office` | `master` + 办公室 `env.conf` 与 topterm / special 脚本 |
-| `x1c` / `desktop` | `master` + 各环境 `env.conf` |
+| `master` | 公共基线；家用 `env.lua`；布局快捷键、dwindle 选项 |
+| `office` | `master` + 办公室 `env.lua` 与 topterm / special 脚本 |
+| `x1c` / `desktop` | `master` + 各环境 `env.lua` |
 | `title` | 独立实验分支（hyprbars）；**不**再作为 env 分支的基线 |
 
 ## 常用快捷键（节选）
 
-完整列表见 `hypr/keybinds.conf`。
+完整列表见 `hypr/keybinds.lua`。
 
 | 快捷键 | 作用 |
 |--------|------|
@@ -39,7 +41,7 @@
 ## 当前进度
 
 1. **快捷键** ✓（媒体键、截图、剪贴板、布局切换、resize；部分笔记本键仍延后）
-2. 显示器 / overlay 骨架 ✓（`env.conf` 最后加载；办公室见 `office` 分支）
+2. 显示器 / overlay 骨架 ✓（`env.lua` 最后加载；办公室见 `office` 分支）
 3. 外观 / 输入 / 启动项 ✓（手势、GTK/Qt 外观部分延后）
 4. Waybar ✓
 5. Wofi ✓
@@ -49,9 +51,9 @@
 
 ## 多环境（overlay）
 
-公共配置在 `master`，**不依赖 env**；机器相关 **仅改 `hypr/env.conf`**。
+公共配置在 `master`，**不依赖 env**；机器相关 **仅改 `hypr/env.lua`**。
 
-`office` / `x1c` / `desktop` 在 rebase **`master`** 后维护各自 `env.conf` 与脚本。详见 `hypr/env/README.md`。
+`office` / `x1c` / `desktop` 在 rebase **`master`** 后维护各自 `env.lua` 与脚本。详见 `hypr/env/README.md`。
 
 ## 部署
 
