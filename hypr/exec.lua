@@ -1,0 +1,55 @@
+-- ============================================================
+-- 环境变量与启动命令（hyprland.start）
+-- 说明：稍后通过问答确认最小启动集合。
+-- DPI 见 env.lua（各环境 scale 不同）。
+-- ============================================================
+
+-- --- 环境变量：输入法（fcitx5）---
+-- 让 GTK / Qt / X11 / SDL 程序走 fcitx，换配置后中文输入更稳
+hl.env("GTK_IM_MODULE", "fcitx")
+hl.env("QT_IM_MODULE", "fcitx")
+hl.env("XMODIFIERS", "@im=fcitx")
+hl.env("SDL_IM_MODULE", "fcitx")
+
+-- --- 开机自启 ---
+hl.on("hyprland.start", function()
+    -- 将会话变量导入 dbus / systemd（门户、托盘等依赖）
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+
+    -- 输入法（中文）：等 Wayland socket 就绪后再启；清掉可能被 D-Bus 抢跑且连失败的实例
+    hl.exec_cmd("sh -c 'until [ -S \"$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY\" ]; do sleep 0.1; done; killall fcitx5 2>/dev/null; sleep 0.2; exec fcitx5 -d'")
+
+    -- Polkit 认证代理（提权密码框；包：hyprpolkitagent）
+    -- 已卸载旧的 polkit-kde-agent，避免多代理抢会话
+    hl.exec_cmd("systemctl --user start hyprpolkitagent")
+
+    -- xdg-desktop-portal：须在 waybar 之前；勿 killall 抢总线（会导致 gtk portal 超时、waybar 假死）
+    hl.exec_cmd("systemctl --user start xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal")
+    hl.exec_cmd("waybar")
+
+    -- --- 其余自启（待问答）---
+    -- E6 nm-applet：延后（以后与 waybar 一并考虑）
+    -- hl.exec_cmd("nm-applet --indicator")
+
+    -- 剪贴板历史（Super+V / cliphist）
+    hl.exec_cmd("wl-paste --type text --watch cliphist store")
+    hl.exec_cmd("wl-paste --type image --watch cliphist store")
+
+    -- E8 foot --server：延后细化
+    -- 以后可启用服务端，并将 Super+Return 改为 footclient：
+    -- hl.exec_cmd("foot --server")
+
+    -- E9 壁纸：awww 守护进程 + 恢复上次壁纸（无记录则随机）
+    hl.exec_cmd("awww-daemon")
+    hl.exec_cmd(scriptsDir .. "/wallpaper.sh restore")
+
+    -- E10 光标 / 图标：延后细化（GTK、Qt 的 cursor 与 icon theme）
+    -- 现网曾用：
+    -- hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme \"McMojava Cursors\"")
+
+    -- E11 kwalletd6：不要（已不用 KDE 钱包）
+
+    -- E12 Qt 平台主题：延后，与 E10 一并做 GTK/Qt 外观时再加
+    -- hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
+end)
