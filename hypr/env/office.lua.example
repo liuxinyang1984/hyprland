@@ -1,0 +1,26 @@
+-- ============================================================
+-- 办公室台式机 env.lua 示例（整文件替换 hypr/env.lua）
+-- 实机：DP-1 主屏 + DVI-D-1 竖屏；scale 1.0
+-- ============================================================
+
+-- --- DPI ---
+-- hl.on("hyprland.start", function()
+--     hl.exec_cmd("echo \"Xft.dpi: 96\" | xrdb -merge")
+-- end)
+
+-- --- 本机显示器 ---
+-- hl.monitor({ output = "DP-1", mode = "1920x1200", position = "0x0", scale = 1 })
+-- hl.monitor({ output = "DVI-D-1", mode = "1600x1200", position = "1940x0", scale = 1, transform = 1 })
+-- hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
+
+-- --- 可选：主屏 1–5 / 副屏 6–10 ---
+-- hl.workspace_rule({ workspace = "1", monitor = "DP-1" })
+-- hl.workspace_rule({ workspace = "2", monitor = "DP-1" })
+-- hl.workspace_rule({ workspace = "3", monitor = "DP-1" })
+-- hl.workspace_rule({ workspace = "4", monitor = "DP-1" })
+-- hl.workspace_rule({ workspace = "5", monitor = "DP-1" })
+-- hl.workspace_rule({ workspace = "6", monitor = "DVI-D-1" })
+-- hl.workspace_rule({ workspace = "7", monitor = "DVI-D-1" })
+-- hl.workspace_rule({ workspace = "8", monitor = "DVI-D-1" })
+-- hl.workspace_rule({ workspace = "9", monitor = "DVI-D-1" })
+-- hl.workspace_rule({ workspace = "10", monitor = "DVI-D-1" })

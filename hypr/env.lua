@@ -1,0 +1,12 @@
+-- ============================================================
+-- 环境 overlay — 家用笔记本（master 默认）
+-- 办公室等环境请用 office 分支替换本文件（见 env/office.lua.example）
+-- ============================================================
+
+hl.on("hyprland.start", function()
+    hl.exec_cmd("echo \"Xft.dpi: 120\" | xrdb -merge")
+end)
+
+hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x0", scale = 1.25 })
+hl.monitor({ output = "headless", disabled = true })
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1.25 })
