@@ -61,7 +61,8 @@ PY
 )
 
 if [[ "$cross" != "1" ]]; then
-  hyprctl dispatch movefocus "$dir" >/dev/null
+  # Hyprland 0.57+：dispatch 参数为 Lua dispatcher 对象
+  hyprctl dispatch "hl.dsp.focus({ direction = \"$dir\" })" >/dev/null
   exit 0
 fi
 
@@ -84,8 +85,8 @@ elif dir in ("r", "d") and idx + 1 < len(ordered):
 )
 
 if [[ -n "${neighbor:-}" ]]; then
-  hyprctl dispatch focusmonitor "$neighbor" >/dev/null
+  hyprctl dispatch "hl.dsp.focus({ monitor = \"$neighbor\" })" >/dev/null
 else
-  # 无邻屏时仍走原生 movefocus（组/全屏等边角情况）
-  hyprctl dispatch movefocus "$dir" >/dev/null
+  # 无邻屏时仍走原生 focus（组/全屏等边角情况）
+  hyprctl dispatch "hl.dsp.focus({ direction = \"$dir\" })" >/dev/null
 fi
