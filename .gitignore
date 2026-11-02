@@ -1,3 +1,5 @@
 .cursor/
 waybar/.style-theme
 wofi/.style-theme
+# Hyprland 0.57+ 入口为 hyprland.lua；偶发生成的 stub .conf 勿提交
+hypr/hyprland.conf
