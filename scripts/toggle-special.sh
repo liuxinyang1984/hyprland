@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# 在指定显示器上切换具名 special 工作区（togglespecialworkspace 默认跟焦点屏走）
+# 在指定显示器上切换具名 special 工作区（toggle_special 默认跟焦点屏走）
 # 用法：toggle-special.sh <monitor> <special-name>
 #
-# 跨屏时只 focusmonitor 来回，不要 focuswindow：否则 Hyprland 偶发把原窗
-# 搬到目标屏的 special（例如在 left 上按 Super+] 窗被送到 right）。
+# Hyprland 0.57+：hyprctl dispatch 使用 hl.dsp.* Lua 语法
+# 跨屏时只 focus monitor 来回，不要 focuswindow：否则偶发把原窗搬到目标屏 special。
 
 set -euo pipefail
 
@@ -15,14 +15,18 @@ fi
 target_monitor="$1"
 special_name="$2"
 
+hl_dispatch() {
+	hyprctl dispatch "$1" >/dev/null
+}
+
 current_mon="$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')"
 
 if [[ "$current_mon" == "$target_monitor" ]]; then
-	hyprctl dispatch togglespecialworkspace "$special_name"
+	hl_dispatch "hl.dsp.workspace.toggle_special(\"${special_name}\")"
 	exit 0
 fi
 
-hyprctl keyword cursor:no_warps true
+hyprctl eval 'hl.config({ cursor = { no_warps = true } })' >/dev/null
 hyprctl --batch \
-	"dispatch focusmonitor ${target_monitor}; dispatch togglespecialworkspace ${special_name}; dispatch focusmonitor ${current_mon}"
-hyprctl keyword cursor:no_warps false
+	"dispatch hl.dsp.focus({ monitor = \"${target_monitor}\" }); dispatch hl.dsp.workspace.toggle_special(\"${special_name}\"); dispatch hl.dsp.focus({ monitor = \"${current_mon}\" })"
+hyprctl eval 'hl.config({ cursor = { no_warps = false } })' >/dev/null

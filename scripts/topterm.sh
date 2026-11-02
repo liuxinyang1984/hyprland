@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 竖屏顶部分割区 foot topterm：不存在则拉起，钉到 DVI-D-1 顶边，可选聚焦
-#
+# Hyprland 0.57+：hyprctl dispatch 使用 hl.dsp.* Lua 语法
 
 set -euo pipefail
 
@@ -10,6 +10,14 @@ readonly MONITOR='DVI-D-1'
 readonly HEIGHT=288
 readonly TOP=5
 readonly CLOCK_CMD='tty-clock -c -s -C 2'
+
+hl_exec() {
+	hyprctl eval "hl.exec_cmd([=[${1}]=])" >/dev/null
+}
+
+hl_dispatch() {
+	hyprctl dispatch "$1" >/dev/null
+}
 
 topterm_exists() {
 	hyprctl clients -j 2>/dev/null | jq -e --arg c "$CLASS" '.[] | select(.class == $c)' >/dev/null
@@ -39,7 +47,7 @@ ensure_topterm() {
 	fi
 	local w mx my border
 	read -r w mx my border < <(topterm_geom)
-	hyprctl dispatch exec "foot -a $CLASS -T $TITLE -w ${w}x${HEIGHT} -- sh -c '${CLOCK_CMD}; exec \"\${SHELL:-bash}\" -i'"
+	hl_exec "foot -a ${CLASS} -T ${TITLE} -w ${w}x${HEIGHT} -- sh -c '${CLOCK_CMD}; exec \"\${SHELL:-bash}\" -i'"
 	for _ in $(seq 1 30); do
 		sleep 0.05
 		topterm_exists && return 0
@@ -54,13 +62,13 @@ layout_topterm() {
 	local w mx my border
 	read -r w mx my border < <(topterm_geom)
 	if [[ "$resize" == 1 ]]; then
-		hyprctl dispatch resizewindowpixel "exact ${w} ${HEIGHT},class:$CLASS" 2>/dev/null || true
+		hl_dispatch "hl.dsp.window.resize({ x = ${w}, y = ${HEIGHT}, relative = false, window = \"class:${CLASS}\" })" || true
 	fi
-	hyprctl dispatch movewindowpixel "exact $((mx + border)) ${TOP},class:$CLASS" 2>/dev/null || true
+	hl_dispatch "hl.dsp.window.move({ x = $((mx + border)), y = ${TOP}, relative = false, window = \"class:${CLASS}\" })" || true
 }
 
 focus_topterm() {
-	hyprctl dispatch focuswindow "class:$CLASS" 2>/dev/null || true
+	hl_dispatch "hl.dsp.focus({ window = \"class:${CLASS}\" })" || true
 }
 
 mode='pin'

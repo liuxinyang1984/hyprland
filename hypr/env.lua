@@ -83,14 +83,13 @@ hl.bind(mainMod .. " + grave", hl.dsp.exec_cmd(scriptsDir .. "/topterm.sh --focu
 hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.exec_cmd(scriptsDir .. "/topterm.sh --focus"))
 
 -- topterm 打开：slide top 幕布降落 + Q 弹
-hl.curve("curtainBounce", 0.28, 1.65, 0.88, 1.0)
+hl.curve("curtainBounce", { type = "bezier", points = { {0.28, 1.65}, {0.88, 1.0} } })
 hl.animation({ leaf = "windows", enabled = false, speed = 1, bezier = "default" })
 hl.animation({ leaf = "windowsIn", enabled = true, speed = 5, bezier = "curtainBounce" })
 hl.animation({ leaf = "fade", enabled = false, speed = 1, bezier = "default" })
 hl.animation({ leaf = "fadeIn", enabled = false, speed = 1, bezier = "default" })
 hl.animation({ leaf = "fadeSwitch", enabled = false, speed = 1, bezier = "default" })
 hl.animation({ leaf = "windowsMove", enabled = false, speed = 1, bezier = "default" })
-
 -- special 缩放（覆盖公共 dwindle.special_scale_factor）
 hl.config({
     dwindle = {
