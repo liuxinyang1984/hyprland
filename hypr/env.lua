@@ -38,10 +38,12 @@ hl.workspace_rule({ workspace = "9", monitor = "DVI-D-1" })
 hl.workspace_rule({ workspace = "10", monitor = "DVI-D-1" })
 
 -- --- special：left / right / backspace / backslash ---
-hl.workspace_rule({ workspace = "special:left", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "special:right", monitor = "DVI-D-1" })
-hl.workspace_rule({ workspace = "special:backspace", monitor = "DVI-D-1" })
-hl.workspace_rule({ workspace = "special:backslash", monitor = "DP-1" })
+-- gaps_out：special 内边距（平铺窗）；另见 dwindle.special_scale_factor
+local special_gaps = 48
+hl.workspace_rule({ workspace = "special:left", monitor = "DP-1", gaps_out = special_gaps })
+hl.workspace_rule({ workspace = "special:right", monitor = "DVI-D-1", gaps_out = special_gaps })
+hl.workspace_rule({ workspace = "special:backspace", monitor = "DVI-D-1", gaps_out = special_gaps })
+hl.workspace_rule({ workspace = "special:backslash", monitor = "DP-1", gaps_out = special_gaps })
 
 hl.bind(mainMod .. " + bracketleft", hl.dsp.exec_cmd(scriptsDir .. "/toggle-special.sh DP-1 left"))
 hl.bind(mainMod .. " + SHIFT + bracketleft", hl.dsp.window.move({ workspace = "special:left", follow = false }))
