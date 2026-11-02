@@ -121,10 +121,12 @@ hl.window_rule({
     workspace = "special:backspace",
 })
 
--- Xephyr → special:backslash，浮动
+-- Xephyr → special:backslash，浮动并留边（浮动不受 special_scale_factor 影响）
 hl.window_rule({
     name = "xephyr-to-backslash-float",
     match = { class = "^(Xephyr)$" },
     workspace = "special:backslash",
     float = true,
+    center = true,
+    size = "90% 90%",
 })
