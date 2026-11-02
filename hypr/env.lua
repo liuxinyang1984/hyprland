@@ -116,10 +116,10 @@ hl.window_rule({
     workspace = "special:backspace",
 })
 
--- Xephyr → special:backslash，启动即最大化
+-- Xephyr → special:backslash，浮动
 hl.window_rule({
-    name = "xephyr-to-backslash-maximize",
+    name = "xephyr-to-backslash-float",
     match = { class = "^(Xephyr)$" },
     workspace = "special:backslash",
-    maximize = true,
+    float = true,
 })
