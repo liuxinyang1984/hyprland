@@ -37,10 +37,11 @@ hl.workspace_rule({ workspace = "8", monitor = "DVI-D-1" })
 hl.workspace_rule({ workspace = "9", monitor = "DVI-D-1" })
 hl.workspace_rule({ workspace = "10", monitor = "DVI-D-1" })
 
--- --- special：left / right / backspace ---
+-- --- special：left / right / backspace / backslash ---
 hl.workspace_rule({ workspace = "special:left", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "special:right", monitor = "DVI-D-1" })
 hl.workspace_rule({ workspace = "special:backspace", monitor = "DVI-D-1" })
+hl.workspace_rule({ workspace = "special:backslash", monitor = "DP-1" })
 
 hl.bind(mainMod .. " + bracketleft", hl.dsp.exec_cmd(scriptsDir .. "/toggle-special.sh DP-1 left"))
 hl.bind(mainMod .. " + SHIFT + bracketleft", hl.dsp.window.move({ workspace = "special:left", follow = false }))
@@ -60,9 +61,11 @@ hl.bind(mainMod .. " + SHIFT + period", hl.dsp.focus({ monitor = "DVI-D-1" }))
 hl.bind(mainMod .. " + SHIFT + less", hl.dsp.focus({ monitor = "DP-1" }))
 hl.bind(mainMod .. " + SHIFT + greater", hl.dsp.focus({ monitor = "DVI-D-1" }))
 
--- backspace 仅右屏（覆盖 keybinds 里跟焦点屏走的 toggle_special）
+-- backspace 仅右屏；backslash 仅左屏（覆盖 keybinds 里跟焦点屏走的 toggle_special）
 hl.unbind(mainMod .. " + BackSpace")
 hl.bind(mainMod .. " + BackSpace", hl.dsp.exec_cmd(scriptsDir .. "/toggle-special.sh DVI-D-1 backspace"))
+hl.unbind(mainMod .. " + backslash")
+hl.bind(mainMod .. " + backslash", hl.dsp.exec_cmd(scriptsDir .. "/toggle-special.sh DP-1 backslash"))
 
 -- 竖屏顶部分割区：pin 浮动终端（始终可见；grave 聚焦）
 hl.window_rule({
